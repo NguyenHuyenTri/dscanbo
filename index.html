@@ -19,18 +19,21 @@
     <!-- HEADER -->
     <header class="bg-red-700 text-white shadow-md border-b-4 border-yellow-400 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row justify-between items-center gap-3">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl shadow">
-                   <i class="fa-solid fa-address-book text-amber-400"></i>
+            <div class="flex items-center gap-3 w-full md:w-auto">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl shadow flex-shrink-0">
+                   <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Communist_Party_of_Vietnam_flag_logo_gold.svg?utm_source=vi.wikipedia.org&utm_campaign=index&utm_content=original" alt="Logo"/>
                 </div>
-                <div>
-                    <h1 class="text-lg md:text-xl font-bold uppercase tracking-wide">DANH BẠ CÁN BỘ PHƯỜNG HOÀ XUÂN</h1>
-                    <p class="text-xs text-red-100 font-light">Đảng ủy - HĐND - UBND Phường Hòa Xuân</p>
+                <div class="min-w-0 flex-grow">
+                    <!-- Đã tinh chỉnh text-base sm:text-lg để không bị tràn chữ Xuân -->
+                    <h1 class="text-base sm:text-lg font-bold uppercase tracking-wide truncate">ĐẢNG UỶ PHƯỜNG HOÀ XUÂN </h1>
+                    <p class="text-xs text-red-100 font-light truncate">DANH BẠ CÁN BỘ</p>
                 </div>
             </div>
-            <div id="connectionStatus" class="text-xs bg-red-800/60 px-3 py-1.5 rounded-full border border-red-500/30 flex items-center gap-2">
+              
+            <div id="connectionStatus" class="text-xs bg-red-800/60 px-3 py-1.5 rounded-full border border-red-500/30 flex items-center gap-2 flex-shrink-0">
                 <span id="statusDot" class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-                <span id="statusText">Hệ thống sẵn sàng</span>
+                <span id="statusText"></span>
+     
             </div>
         </div>
     </header>
@@ -105,12 +108,16 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
-    <footer class="bg-slate-800 text-slate-400 text-xs py-6 mt-auto border-t border-slate-700">
-        <div class="max-w-7xl mx-auto px-4 text-center space-y-1">
-            <p>© 2026 Đảng ủy - UBND Phường Hòa Xuân - Hệ Thống Danh Bạ Điện Tử.</p>
+    <!-- FOOTER - CẢNH BÁO BẢO MẬT NỘI BỘ -->
+<footer class="bg-slate-900 text-slate-400 text-xs py-6 mt-auto border-t-2 border-red-600">
+    <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-red-950/80 border border-red-600/50 text-red-400 font-semibold uppercase tracking-wider text-[11px]">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Tài liệu lưu hành nội bộ</span>
         </div>
-    </footer>
+        <p class="text-slate-400">© 2026 Đảng ủy - UBND Phường Hòa Xuân - Hệ Thống Danh Bạ Điện Tử.</p>
+    </div>
+</footer>
 
     <!-- SCRIPT -->
     <script>
@@ -174,7 +181,7 @@
                     processData(cachedData);
                     showLoading(false);
                     hasCache = true;
-                    setSystemStatus("Đã tải từ bộ nhớ đệm", "bg-emerald-400");
+                    setSystemStatus("", "bg-emerald-400");
                 }
             } catch (e) {
                 console.warn("Lỗi đọc bộ nhớ đệm:", e);
@@ -189,7 +196,7 @@
             if (freshData) {
                 saveCacheData(freshData);
                 processData(freshData);
-                setSystemStatus("Hệ thống sẵn sàng (Đã cập nhật mới)", "bg-green-400");
+                setSystemStatus("Đã cập nhật mới", "bg-green-400");
             } else if (!hasCache) {
                 processData(FALLBACK_DATA);
                 setSystemStatus("Dữ liệu Mẫu Offline", "bg-amber-400");
@@ -357,7 +364,9 @@
         function renderCurrentSheet() {
             const sheetName = sheetNames[currentSheetIndex];
             const rawList = rawData[sheetName] || [];
-            const searchKeyword = removeAccents(document.getElementById("searchInput").value);
+            
+            const rawSearchVal = document.getElementById("searchInput").value;
+            const searchKeyword = removeAccents(rawSearchVal).trim();
 
             document.getElementById("currentSheetTitle").textContent = sheetName;
 
@@ -372,9 +381,11 @@
                     const valCol5 = removeAccents(getValueAtIndex(officer, 4));
                     const valPhone = removeAccents(getValueAtIndex(officer, 5)) + " " + removeAccents(extractPhone(officer));
 
-                    const officerText = `${valName} ${valTitle} ${valCol5} ${valPhone}`;
+                    const officerWords = `${valName} ${valTitle} ${valCol5} ${valPhone}`.split(/\s+/);
 
-                    return keywords.every(kw => officerText.includes(kw));
+                    return keywords.every(kw => {
+                        return officerWords.some(word => word.startsWith(kw));
+                    });
                 });
             }
 
@@ -398,154 +409,93 @@
                 grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4";
             }
 
-            // RENDER TRANG 1
-            if (currentSheetIndex === 0) {
-                validOfficers.forEach(officer => {
-                    let rawImgUrl = getValueAtIndex(officer, 1);
-                    let imgUrl = formatImageUrl(rawImgUrl);
+            validOfficers.forEach(officer => {
+                let rawImgUrl = getValueAtIndex(officer, 1);
+                let imgUrl = formatImageUrl(rawImgUrl);
 
-                    const valName = getValueAtIndex(officer, 2) || "Chưa cập nhật";
-                    const valTitle = getValueAtIndex(officer, 3) || "Cán bộ";
-                    
-                    let valPhone = getValueAtIndex(officer, 5);
-                    if (!valPhone || valPhone.replace(/[^0-9]/g, '').length < 8) {
-                        valPhone = extractPhone(officer);
-                    }
-                    const cleanPhone = String(valPhone).replace(/[^0-9]/g, '');
+                const valName = getValueAtIndex(officer, 2) || "Chưa cập nhật";
+                const valTitle = getValueAtIndex(officer, 3) || "Cán bộ";
+                const valCol5 = getValueAtIndex(officer, 4);
+                
+                let valPhone = getValueAtIndex(officer, 5);
+                if (!valPhone || valPhone.replace(/[^0-9]/g, '').length < 8) {
+                    valPhone = extractPhone(officer);
+                }
+                const cleanPhone = String(valPhone).replace(/[^0-9]/g, '');
 
-                    const card = document.createElement("div");
-                    card.className = `bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between ${validOfficers.length === 1 ? 'max-w-md w-full' : 'w-full'}`;
+                const card = document.createElement("div");
+                // Đã tích hợp viền đỏ phía trên và hiệu ứng hửng sáng khi hover
+                card.className = `relative overflow-hidden bg-white rounded-xl p-4 border-t-4 border-t-red-600 border-x border-b border-slate-200 shadow-sm hover:shadow-md hover:border-red-400 hover:ring-2 hover:ring-red-100/50 transition-all duration-300 flex flex-col justify-between ${validOfficers.length === 1 ? 'max-w-md w-full' : 'w-full'}`;
 
-                    const isImgValid = imgUrl && imgUrl.length > 10;
-                    
-                    const avatarHtml = isImgValid ? `
-                        <img src="${escapeHtml(imgUrl)}" 
-                             alt="${escapeHtml(valName)}" 
-                             onclick="openImageModal('${escapeHtml(imgUrl)}')" 
-                             class="w-14 h-14 rounded-full object-cover border-2 border-red-500/20 shadow-sm flex-shrink-0 cursor-zoom-in hover:scale-105 hover:border-red-500 transition duration-200" 
-                             title="Click để phóng to ảnh" 
-                             onerror="handleImageError(this, '${escapeHtml(rawImgUrl)}');">
-                    ` : `
-                        <div class="w-14 h-14 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-lg border-2 border-red-200 flex-shrink-0">
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-                    `;
+                const isImgValid = imgUrl && imgUrl.length > 10;
+                
+                const avatarHtml = isImgValid ? `
+                    <img src="${escapeHtml(imgUrl)}" 
+                         alt="${escapeHtml(valName)}" 
+                         onclick="openImageModal('${escapeHtml(imgUrl)}')" 
+                         class="w-14 h-14 rounded-full object-cover border-2 border-red-500/20 shadow-sm flex-shrink-0 cursor-zoom-in hover:scale-105 hover:border-red-500 transition duration-200" 
+                         title="Click để phóng to ảnh" 
+                         onerror="handleImageError(this, '${escapeHtml(rawImgUrl)}');">
+                ` : `
+                    <div class="w-14 h-14 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-lg border-2 border-red-200 flex-shrink-0">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                `;
 
-                    card.innerHTML = `
-                        <div>
-                            <div class="flex items-center gap-3.5 mb-3.5">
-                                ${avatarHtml}
-                                <div class="min-w-0 flex-grow">
+                const showCol5 = (currentSheetIndex >= 3) && valCol5;
+                const col5Html = showCol5 ? `
+                    <div class="mt-1.5 inline-flex items-center gap-1.5 text-[11px] text-amber-700 bg-amber-50 border border-amber-200/80 rounded-md px-2 py-0.5 max-w-full truncate" title="${escapeHtml(valCol5)}">
+                        <i class="fa-solid fa-circle-info text-amber-500 text-[10px] flex-shrink-0"></i>
+                        <span class="truncate font-medium">${escapeHtml(valCol5)}</span>
+                    </div>
+                ` : '';
+
+                card.innerHTML = `
+                    <!-- Logo chìm trang trí góc card -->
+                    <div class="absolute -right-4 -bottom-4 opacity-[0.04] pointer-events-none">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Communist_Party_of_Vietnam_flag_logo_gold.svg" class="w-28 h-28 object-contain">
+                    </div>
+
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-3.5 mb-3.5">
+                            ${avatarHtml}
+                            <div class="min-w-0 flex-grow">
+                                <div class="flex items-center gap-1.5">
                                     <h3 class="text-base font-bold text-slate-800 truncate" title="${escapeHtml(valName)}">
                                         ${escapeHtml(valName)}
                                     </h3>
-                                    <div class="mt-1">
-                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 max-w-full truncate">
-                                            <i class="fa-solid fa-award text-blue-500 text-[11px]"></i>
-                                            <span class="truncate">${escapeHtml(valTitle)}</span>
-                                        </span>
-                                    </div>
+    
+                                </div>
+                                <div class="mt-1 flex flex-col items-start gap-1">
+                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 max-w-full truncate">
+                                        <i class="fa-solid fa-award text-blue-500 text-[11px]"></i>
+                                        <span class="truncate">${escapeHtml(valTitle)}</span>
+                                    </span>
+                                    ${col5Html}
                                 </div>
                             </div>
-
-                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 flex items-center justify-between gap-2">
-                                <div class="flex items-center gap-2.5 min-w-0">
-                                    <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm flex-shrink-0">
-                                        <i class="fa-solid fa-phone"></i>
-                                    </div>
-                                    <div class="truncate">
-                                        <p class="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Số điện thoại</p>
-                                        <p class="text-sm font-bold text-slate-700 truncate">${escapeHtml(valPhone)}</p>
-                                    </div>
-                                </div>
-                                <a href="tel:${cleanPhone}" class="px-4 py-1.5 min-w-[76px] bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-md shadow-sm transition flex items-center justify-center gap-1.5 flex-shrink-0 active:scale-95" title="Gọi ngay">
-                                    <i class="fa-solid fa-phone-volume"></i>
-                                    <span>Gọi</span>
-                                </a>
-                            </div>
                         </div>
+                    </div>
 
-                        <div class="pt-3 border-t border-slate-100 mt-3">
-                            <a href="https://zalo.me/${cleanPhone}" target="_blank" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold py-2 px-3 rounded-lg shadow-sm transition flex items-center justify-center gap-2">
-                                <span class="w-2 h-2 rounded-full bg-blue-300 animate-ping"></span>
-                                <span>Tương tác Zalo</span>
-                            </a>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                });
-            } else {
-                // RENDER TỪ TRANG 2 TRỞ LÊN
-                validOfficers.forEach(officer => {
-                    const valName = getValueAtIndex(officer, 2) || "Chưa cập nhật";
-                    const valTitle = getValueAtIndex(officer, 3) || "Cán bộ";
-                    const valCol5 = getValueAtIndex(officer, 4);
-                    
-                    let valPhone = getValueAtIndex(officer, 5);
-                    if (!valPhone || valPhone.replace(/[^0-9]/g, '').length < 8) {
-                        valPhone = extractPhone(officer);
-                    }
-                    const cleanPhone = String(valPhone).replace(/[^0-9]/g, '');
+                    <!-- KHỐI NÚT TƯƠNG TÁC XẾP DỌC CÓ HIỆU ỨNG ĐỘNG -->
+                    <div class="relative z-10 pt-3 border-t border-slate-100 mt-3 flex flex-col gap-2">
+                        <a href="tel:${cleanPhone}" class="relative overflow-hidden w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-bold py-2.5 px-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2 active:scale-95 group">
+                            <span class="absolute inset-0 w-full h-full bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
+                            <span class="w-2 h-2 rounded-full bg-emerald-200 animate-ping"></span>
+                            <i class="fa-solid fa-phone-volume text-sm animate-bounce"></i>
+                            <span class="uppercase tracking-wider">Gọi Điện</span>
+                        </a>
 
-                    const card = document.createElement("div");
-                    card.className = `bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between ${validOfficers.length === 1 ? 'max-w-md w-full' : 'w-full'}`;
-
-                    // Cột 5 hiển thị gọn gàng, thu nhỏ chiều ngang, nằm cân đối bên trong thẻ
-                    const showCol5 = (currentSheetIndex >= 3) && valCol5;
-                    const col5Html = showCol5 ? `
-                        <div class="mt-1.5 inline-flex items-center gap-1.5 text-[11px] text-amber-700 bg-amber-50 border border-amber-200/80 rounded-md px-2 py-0.5 max-w-full truncate" title="${escapeHtml(valCol5)}">
-                            <i class="fa-solid fa-circle-info text-amber-500 text-[10px] flex-shrink-0"></i>
-                            <span class="truncate font-medium">${escapeHtml(valCol5)}</span>
-                        </div>
-                    ` : '';
-
-                    card.innerHTML = `
-                        <div>
-                            <div class="flex items-center gap-3.5 mb-3.5">
-                                <div class="w-14 h-14 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-lg border-2 border-red-200 flex-shrink-0">
-                                    <i class="fa-solid fa-user"></i>
-                                </div>
-                                <div class="min-w-0 flex-grow">
-                                    <h3 class="text-base font-bold text-slate-800 truncate" title="${escapeHtml(valName)}">
-                                        ${escapeHtml(valName)}
-                                    </h3>
-                                    <div class="mt-1 flex flex-col items-start gap-1">
-                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 max-w-full truncate">
-                                            <i class="fa-solid fa-award text-blue-500 text-[11px]"></i>
-                                            <span class="truncate">${escapeHtml(valTitle)}</span>
-                                        </span>
-                                        ${col5Html}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 flex items-center justify-between gap-2">
-                                <div class="flex items-center gap-2.5 min-w-0">
-                                    <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm flex-shrink-0">
-                                        <i class="fa-solid fa-phone"></i>
-                                    </div>
-                                    <div class="truncate">
-                                        <p class="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Số điện thoại</p>
-                                        <p class="text-sm font-bold text-slate-700 truncate">${escapeHtml(valPhone)}</p>
-                                    </div>
-                                </div>
-                                <a href="tel:${cleanPhone}" class="px-4 py-1.5 min-w-[76px] bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-md shadow-sm transition flex items-center justify-center gap-1.5 flex-shrink-0 active:scale-95" title="Gọi ngay">
-                                    <i class="fa-solid fa-phone-volume"></i>
-                                    <span>Gọi</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="pt-3 border-t border-slate-100 mt-3">
-                            <a href="https://zalo.me/${cleanPhone}" target="_blank" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold py-2 px-3 rounded-lg shadow-sm transition flex items-center justify-center gap-2">
-                                <span class="w-2 h-2 rounded-full bg-blue-300 animate-ping"></span>
-                                <span>Tương tác Zalo</span>
-                            </a>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                });
-            }
+                        <a href="https://zalo.me/${cleanPhone}" target="_blank" class="relative overflow-hidden w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold py-2.5 px-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2 active:scale-95 group">
+                            <span class="absolute inset-0 w-full h-full bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
+                            <span class="w-2 h-2 rounded-full bg-blue-300 animate-ping"></span>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo Logo" class="w-4 h-4 object-contain flex-shrink-0 animate-bounce">
+                            <span class="uppercase tracking-wider">Tương Tác Zalo</span>
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
         }
 
         function handleImageError(imgEl, rawUrl) {
@@ -608,15 +558,6 @@
                 .replace(/"/g, "&quot;")
                 .replace(/'/g, "&#039;");
         }
-        function convertDriveLink(url) {
-            // Dùng Regular Expression để lấy đoạn ID nằm sau /d/
-            const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-            if (match && match[1]) {
-                return `https://lh3.googleusercontent.com/d/${match[1]}`;
-            }
-        return ""; // Trả về rỗng nếu link không hợp lệ
-        }
-        
     </script>
 </body>
 </html>
