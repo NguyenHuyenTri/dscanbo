@@ -58,7 +58,7 @@
 
     <!-- KHỐI CỐ ĐỊNH CHUNG (HEADER + TOOLBAR GỘP LẠI ĐỂ KHÔNG BAO GIỜ BỊ ĐÈ) -->
     <div class="sticky top-0 z-40 bg-slate-50 shadow-md">
-        <!-- HEADER (Thêm class relative để định vị chấm trạng thái góc phải) -->
+        <!-- HEADER -->
         <header class="bg-red-700 text-white border-b-4 border-yellow-400 relative">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row justify-between items-center gap-3 pr-14 md:pr-4">
                 <div class="flex items-center gap-3 w-full md:w-auto">
@@ -79,9 +79,26 @@
             </div>
         </header>
 
-        <!-- TOOLBAR: DROPDOWN & SEARCH -->
+        <!-- TOOLBAR: DROPDOWN & SEARCH (CÓ NÚT ẨN/HIỆN) -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-3.5 flex flex-col md:flex-row items-center justify-between gap-3">
+            
+            <!-- THANH TIÊU ĐỀ KÈM NÚT THU GỌN / MỞ RỘNG TOOLBAR -->
+            <div class="flex items-center justify-between text-xs text-slate-500 px-1 mb-2">
+                <span id="currentSheetTitle" class="font-semibold text-slate-700 text-sm">Đang tải...</span>
+                
+                <div class="flex items-center gap-3">
+                    <!-- NÚT BẤM ẨN / HIỆN THANH TÌM KIẾM VÀ CHỌN DANH BẠ -->
+                    <button onclick="toggleToolbar()" id="toggleToolbarBtn" class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-lg transition active:scale-95 text-xs">
+                        <i id="toggleToolbarIcon" class="fa-solid fa-chevron-up"></i>
+                        <span id="toggleToolbarText">Ẩn</span>
+                    </button>
+
+                    <span id="recordCount" class="bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded-full font-medium">0 cán bộ</span>
+                </div>
+            </div>
+
+            <!-- KHUNG THANH CÔNG CỤ CẦN ẨN/HIỆN -->
+            <div id="searchToolbarContainer" class="bg-white rounded-xl shadow-sm border border-slate-200 p-3.5 flex flex-col md:flex-row items-center justify-between gap-3 transition-all duration-300">
                 <div class="w-full md:w-1/2 flex items-center gap-3">
                     <label for="sheetSelect" class="text-sm font-semibold text-slate-700 whitespace-nowrap flex items-center gap-2">
                         <i class="fa-solid fa-layer-group text-red-600"></i>
@@ -109,11 +126,6 @@
                 </div>
             </div>
 
-            <!-- THÔNG TIN TỔNG QUAN -->
-            <div class="flex items-center justify-between text-xs text-slate-500 px-1 mt-2.5">
-                <span id="currentSheetTitle" class="font-semibold text-slate-700">Đang tải...</span>
-                <span id="recordCount" class="bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded-full font-medium">0 cán bộ</span>
-            </div>
         </div>
     </div>
 
@@ -179,6 +191,7 @@
         let rawData = {};
         let sheetNames = [];
         let currentSheetIndex = 0;
+        let isToolbarVisible = true; // Trạng thái hiển thị thanh tìm kiếm
 
         document.addEventListener("DOMContentLoaded", function() {
             checkNoticeModal();
@@ -267,7 +280,6 @@
                 processData(FALLBACK_DATA);
                 setSystemStatus("Mất kết nối - Dùng dữ liệu Mẫu Offline", "bg-red-500");
             } else {
-                // Có cache nhưng không fetch được mới -> báo trạng thái ngoại tuyến nhẹ nhưng vẫn chạy
                 setSystemStatus("Mất kết nối internet - Dùng dữ liệu lưu trữ", "bg-amber-400");
             }
 
@@ -435,6 +447,27 @@
                 .toLowerCase();
         }
 
+        // HÀM ẨN / HIỆN THANH TÌM KIẾM & DROPDOWN
+        function toggleToolbar() {
+            isToolbarVisible = !isToolbarVisible;
+            const toolbar = document.getElementById("searchToolbarContainer");
+            const btnText = document.getElementById("toggleToolbarText");
+            const toggleIcon = document.getElementById("toggleToolbarIcon");
+            const toggleBtn = document.getElementById("toggleToolbarBtn");
+
+            if (isToolbarVisible) {
+                toolbar.classList.remove("hidden");
+                btnText.textContent = "Ẩn";
+                toggleIcon.className = "fa-solid fa-chevron-up";
+                toggleBtn.className = "inline-flex items-center gap-1.5 px-3 py-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-lg transition active:scale-95 text-xs";
+            } else {
+                toolbar.classList.add("hidden");
+                btnText.textContent = "Hiện";
+                toggleIcon.className = "fa-solid fa-chevron-down";
+                toggleBtn.className = "inline-flex items-center gap-1.5 px-3 py-1 bg-red-100 hover:bg-red-200 text-red-700 font-semibold rounded-lg transition active:scale-95 text-xs border border-red-200";
+            }
+        }
+
         function renderCurrentSheet() {
             const sheetName = sheetNames[currentSheetIndex];
             const rawList = rawData[sheetName] || [];
@@ -515,7 +548,8 @@
                     </div>
                 `;
 
-                const showCol5 = (currentSheetIndex >= 3) && valCol5;
+                // GIỮ NGUYÊN QUY TẮC BAN ĐẦU: Trang 1, 2, 4, 5 hiển thị cột phụ, riêng trang 3 (index 2) ẩn
+                const showCol5 = (currentSheetIndex !== 2) && valCol5;
                 const col5Html = showCol5 ? `
                     <div class="mt-1.5 inline-flex items-center gap-1.5 text-[11px] text-amber-700 bg-amber-50 border border-amber-200/80 rounded-md px-2 py-0.5 max-w-full truncate" title="${escapeHtml(valCol5)}">
                         <i class="fa-solid fa-circle-info text-amber-500 text-[10px] flex-shrink-0"></i>
