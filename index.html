@@ -25,102 +25,101 @@
     <div id="noticeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 transition-all duration-300">
         <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full border-t-4 border-amber-500 overflow-hidden transform transition-all scale-100">
             <!-- Modal Header -->
-            <div class="p-5 pb-3 flex items-center gap-3 border-b border-slate-100 bg-amber-50/50">
-                <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-xl flex-shrink-0">
+            <div class="p-4 pb-2.5 flex items-center gap-2.5 border-b border-slate-100 bg-amber-50/50">
+                <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-lg flex-shrink-0">
                     <i class="fa-solid fa-triangle-exclamation"></i>
                 </div>
                 <div>
-                    <h3 class="text-base font-bold text-slate-800">CẢNH BÁO BẢO MẬT</h3>
-                    <p class="text-xs text-amber-700 font-medium">Hệ thống danh bạ điện tử nội bộ</p>
+                    <h3 class="text-sm font-bold text-slate-800">CẢNH BÁO BẢO MẬT</h3>
+                    <p class="text-[11px] text-amber-700 font-medium">Hệ thống danh bạ điện tử nội bộ</p>
                 </div>
             </div>
 
             <!-- Modal Body -->
-            <div class="p-5 text-sm text-slate-600 space-y-3 leading-relaxed">
+            <div class="p-4 text-xs text-slate-600 space-y-2.5 leading-relaxed">
                 <p class="font-semibold text-slate-800">
                     Lưu ý: Dữ liệu sử dụng nội bộ Đảng ủy - UBND.
                 </p>
-                <p class="text-xs text-slate-500 bg-slate-100 p-3 rounded-lg border border-slate-200">
-                    <i class="fa-solid fa-shield-halved text-red-600 mr-1.5"></i>
+                <p class="text-[11px] text-slate-500 bg-slate-100 p-2.5 rounded-lg border border-slate-200">
+                    <i class="fa-solid fa-shield-halved text-red-600 mr-1"></i>
                     Lưu hành nội bộ, nghiêm cấm mọi hình thức sao chép, trích xuất hoặc phát tán ra bên ngoài.
                 </p>
             </div>
 
             <!-- Modal Footer -->
-            <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
-                <button onclick="closeNoticeModal()" class="w-full sm:w-auto bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold text-xs px-5 py-2.5 rounded-xl shadow-md hover:shadow-lg transition flex items-center justify-center gap-2 active:scale-95">
-                    <i class="fa-solid fa-check-double text-sm"></i>
+            <div class="p-3 bg-slate-50 border-t border-slate-100 flex justify-end">
+                <button onclick="closeNoticeModal()" class="w-full sm:w-auto bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold text-xs px-4 py-2 rounded-xl shadow-md transition flex items-center justify-center gap-2 active:scale-95">
+                    <i class="fa-solid fa-check-double text-xs"></i>
                     <span>TÔI ĐÃ HIỂU VÀ TIẾP TỤC</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- KHỐI CỐ ĐỊNH CHUNG (HEADER + TOOLBAR GỘP LẠI ĐỂ KHÔNG BAO GIỜ BỊ ĐÈ) -->
+    <!-- KHỐI CỐ ĐỊNH CHUNG (HEADER + TOOLBAR) -->
     <div class="sticky top-0 z-40 bg-slate-50 shadow-md">
         <!-- HEADER -->
-        <header class="bg-red-700 text-white border-b-4 border-yellow-400 relative">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col md:flex-row justify-between items-center gap-3 pr-14 md:pr-4">
-                <div class="flex items-center gap-3 w-full md:w-auto">
-                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl shadow flex-shrink-0">
+        <header class="bg-red-700 text-white border-b-2 border-yellow-400 relative">
+            <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 flex justify-between items-center pr-12 md:pr-4">
+                <div class="flex items-center gap-2.5 min-w-0">
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-base shadow flex-shrink-0">
                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Communist_Party_of_Vietnam_flag_logo_gold.svg?utm_source=vi.wikipedia.org&utm_campaign=index&utm_content=original" alt="Logo"/>
                     </div>
                     <div class="min-w-0 flex-grow">
-                        <h1 class="text-base sm:text-lg font-bold uppercase tracking-wide truncate">ĐẢNG UỶ PHƯỜNG HOÀ XUÂN</h1>
-                        <p class="text-xs text-red-100 font-light truncate">DANH BẠ CÁN BỘ</p>
+                        <h1 class="text-xs sm:text-base font-bold uppercase tracking-wide truncate">ĐẢNG UỶ PHƯỜNG HOÀ XUÂN</h1>
+                        <p class="text-[10px] text-red-100 font-light truncate">DANH BẠ CÁN BỘ</p>
                     </div>
                 </div>
                 
-                <!-- CHỈ GIỮ LẠI CHẤM TRẠNG THÁI Ở GÓC PHẢI -->
-                <div id="connectionStatus" class="absolute right-3 top-1/2 -translate-y-1/2 md:static md:translate-y-0 bg-red-800/60 p-2 rounded-full border border-red-500/30 flex items-center justify-center shadow-sm" title="Đang kiểm tra kết nối...">
-                    <span id="statusDot" class="w-3 h-3 rounded-full bg-green-400 animate-pulse block"></span>
+                <!-- CHẤM TRẠNG THÁI GÓC PHẢI -->
+                <div id="connectionStatus" class="absolute right-2.5 top-1/2 -translate-y-1/2 md:static md:translate-y-0 bg-red-800/60 p-1.5 rounded-full border border-red-500/30 flex items-center justify-center shadow-sm" title="Đang kiểm tra kết nối...">
+                    <span id="statusDot" class="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse block"></span>
                     <span id="statusText" class="hidden"></span>
                 </div>
             </div>
         </header>
 
-        <!-- TOOLBAR: DROPDOWN & SEARCH (CÓ NÚT ẨN/HIỆN) -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <!-- TOOLBAR: DROPDOWN & SEARCH -->
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2">
             
-            <!-- THANH TIÊU ĐỀ KÈM NÚT THU GỌN / MỞ RỘNG TOOLBAR -->
-            <div class="flex items-center justify-between text-xs text-slate-500 px-1 mb-2">
-                <span id="currentSheetTitle" class="font-semibold text-slate-700 text-sm">Đang tải...</span>
+            <div class="flex items-center justify-between text-xs text-slate-500 px-0.5 mb-1.5">
+                <span id="currentSheetTitle" class="font-bold text-slate-700 text-xs truncate">Đang tải...</span>
                 
-                <div class="flex items-center gap-3">
-                    <!-- NÚT BẤM ẨN / HIỆN THANH TÌM KIẾM VÀ CHỌN DANH BẠ -->
-                    <button onclick="toggleToolbar()" id="toggleToolbarBtn" class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-lg transition active:scale-95 text-xs">
-                        <i id="toggleToolbarIcon" class="fa-solid fa-chevron-up"></i>
+                <div class="flex items-center gap-2 flex-shrink-0">
+                    <!-- NÚT BẤM ẨN / HIỆN NHỎ GỌN -->
+                    <button onclick="toggleToolbar()" id="toggleToolbarBtn" class="inline-flex items-center gap-1 px-2.5 py-0.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-md transition active:scale-95 text-[11px]">
+                        <i id="toggleToolbarIcon" class="fa-solid fa-chevron-up text-[10px]"></i>
                         <span id="toggleToolbarText">Ẩn</span>
                     </button>
 
-                    <span id="recordCount" class="bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded-full font-medium">0 cán bộ</span>
+                    <span id="recordCount" class="bg-slate-200 text-slate-700 px-2 py-0.5 rounded-full font-medium text-[11px]">0 cán bộ</span>
                 </div>
             </div>
 
-            <!-- KHUNG THANH CÔNG CỤ CẦN ẨN/HIỆN -->
-            <div id="searchToolbarContainer" class="bg-white rounded-xl shadow-sm border border-slate-200 p-3.5 flex flex-col md:flex-row items-center justify-between gap-3 transition-all duration-300">
-                <div class="w-full md:w-1/2 flex items-center gap-3">
-                    <label for="sheetSelect" class="text-sm font-semibold text-slate-700 whitespace-nowrap flex items-center gap-2">
+            <!-- KHUNG THANH CÔNG CỤ -->
+            <div id="searchToolbarContainer" class="bg-white rounded-lg shadow-sm border border-slate-200 p-2.5 flex flex-col md:flex-row items-center justify-between gap-2 transition-all duration-300">
+                <div class="w-full md:w-1/2 flex items-center gap-2">
+                    <label for="sheetSelect" class="text-xs font-semibold text-slate-700 whitespace-nowrap flex items-center gap-1.5">
                         <i class="fa-solid fa-layer-group text-red-600"></i>
                         <span>Danh bạ:</span>
                     </label>
                     <div class="relative w-full">
-                        <select id="sheetSelect" onchange="onSheetChange()" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-sm font-medium rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 p-2.5 pr-8 transition cursor-pointer appearance-none">
+                        <select id="sheetSelect" onchange="onSheetChange()" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs font-medium rounded-md focus:ring-1 focus:ring-red-500 focus:border-red-500 p-2 pr-7 transition cursor-pointer appearance-none">
                             <option value="">-- Đang tải dữ liệu --</option>
                         </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-slate-500">
-                            <i class="fa-solid fa-chevron-down text-xs"></i>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
+                            <i class="fa-solid fa-chevron-down text-[10px]"></i>
                         </div>
                     </div>
                 </div>
 
                 <!-- SEARCH BAR -->
                 <div class="w-full md:w-1/2 relative">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-2.5 pointer-events-none text-slate-400 text-xs">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
-                    <input type="text" id="searchInput" oninput="onSearchInput()" placeholder="Tìm kiếm tên, chức danh, SĐT..." class="w-full pl-9 pr-10 py-2.5 bg-slate-50 border border-slate-300 text-slate-800 text-sm rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
-                    <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 hover:text-slate-600">
+                    <input type="text" id="searchInput" oninput="onSearchInput()" placeholder="Tìm kiếm tên, chức danh, SĐT..." class="w-full pl-8 pr-8 py-2 bg-slate-50 border border-slate-300 text-slate-800 text-xs rounded-md focus:ring-1 focus:ring-red-500 focus:border-red-500 transition">
+                    <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute inset-y-0 right-0 flex items-center pr-2.5 text-slate-400 hover:text-slate-600 text-xs">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
@@ -130,44 +129,44 @@
     </div>
 
     <!-- MAIN CONTAINER (DANH SÁCH CÁN BỘ) -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
+    <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 flex-grow w-full">
         
         <!-- LOADING STATE -->
-        <div id="loadingState" class="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center my-8">
-            <div class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-slate-200 border-t-red-600 mb-3"></div>
-            <p class="text-sm text-slate-600 font-medium">Đang tải dữ liệu trực tuyến...</p>
+        <div id="loadingState" class="bg-white rounded-xl shadow-sm border border-slate-200 p-8 text-center my-4">
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-3 border-slate-200 border-t-red-600 mb-2"></div>
+            <p class="text-xs text-slate-600 font-medium">Đang tải dữ liệu trực tuyến...</p>
         </div>
 
-        <!-- DATA GRID CONTAINER -->
-        <div id="dataContainer" class="hidden">
-            <div id="officersGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        <!-- DATA CONTAINER -->
+        <div id="dataContainer" class="hidden space-y-4">
+            <div id="officersGrid"></div>
         </div>
 
         <!-- EMPTY STATE -->
-        <div id="emptyState" class="hidden bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center my-8">
-            <div class="w-16 h-16 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">
+        <div id="emptyState" class="hidden bg-white rounded-xl shadow-sm border border-slate-200 p-8 text-center my-4">
+            <div class="w-12 h-12 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-2 text-xl">
                 <i class="fa-solid fa-address-book"></i>
             </div>
-            <h3 class="text-base font-semibold text-slate-700 mb-1">Không tìm thấy dữ liệu phù hợp</h3>
-            <p class="text-xs text-slate-500">Chỉ hiển thị các bản ghi có chứa chuỗi số điện thoại hợp lệ.</p>
+            <h3 class="text-sm font-semibold text-slate-700 mb-0.5">Không tìm thấy dữ liệu phù hợp</h3>
+            <p class="text-[11px] text-slate-500">Chỉ hiển thị các bản ghi có chứa chuỗi số điện thoại hợp lệ.</p>
         </div>
 
     </main>
 
     <!-- MODAL PHÓNG TO ẢNH -->
-    <div id="imageModal" onclick="closeImageModal()" class="fixed inset-0 bg-black/85 z-50 hidden flex items-center justify-center p-4 transition-opacity duration-300 cursor-zoom-out">
+    <div id="imageModal" onclick="closeImageModal()" class="fixed inset-0 bg-black/85 z-50 hidden flex items-center justify-center p-3 transition-opacity duration-300 cursor-zoom-out">
         <div class="relative max-w-3xl w-full flex items-center justify-center" onclick="event.stopPropagation()">
-            <button onclick="closeImageModal()" class="absolute -top-12 right-0 text-white hover:text-yellow-400 text-base font-bold px-3 py-1.5 bg-black/50 rounded-lg transition flex items-center gap-2">
-                <i class="fa-solid fa-xmark text-lg"></i> Đóng
+            <button onclick="closeImageModal()" class="absolute -top-10 right-0 text-white hover:text-yellow-400 text-xs font-bold px-2.5 py-1 bg-black/50 rounded-lg transition flex items-center gap-1.5">
+                <i class="fa-solid fa-xmark text-sm"></i> Đóng
             </button>
-            <img id="modalImg" src="" alt="Ảnh phóng to" class="max-h-[85vh] max-w-full rounded-xl shadow-2xl border-4 border-white object-contain bg-white">
+            <img id="modalImg" src="" alt="Ảnh phóng to" class="max-h-[80vh] max-w-full rounded-xl shadow-2xl border-2 border-white object-contain bg-white">
         </div>
     </div>
 
     <!-- FOOTER -->
-    <footer class="bg-slate-900 text-slate-400 text-xs py-6 mt-auto border-t-2 border-red-600">
-        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-red-950/80 border border-red-600/50 text-red-400 font-semibold uppercase tracking-wider text-[11px]">
+    <footer class="bg-slate-900 text-slate-400 text-[11px] py-4 mt-auto border-t-2 border-red-600">
+        <div class="max-w-7xl mx-auto px-3 text-center space-y-1.5">
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-red-950/80 border border-red-600/50 text-red-400 font-semibold uppercase tracking-wider text-[10px]">
                 <i class="fa-solid fa-triangle-exclamation"></i>
                 <span>Tài liệu lưu hành nội bộ</span>
             </div>
@@ -191,7 +190,7 @@
         let rawData = {};
         let sheetNames = [];
         let currentSheetIndex = 0;
-        let isToolbarVisible = true; // Trạng thái hiển thị thanh tìm kiếm
+        let isToolbarVisible = true;
 
         document.addEventListener("DOMContentLoaded", function() {
             checkNoticeModal();
@@ -318,7 +317,7 @@
             const dot = document.getElementById("statusDot");
             const txt = document.getElementById("statusText");
             if (dot) {
-                dot.className = `w-3 h-3 rounded-full ${dotColorClass} animate-pulse block`;
+                dot.className = `w-2.5 h-2.5 rounded-full ${dotColorClass} animate-pulse block`;
                 if(dot.parentElement) {
                     dot.parentElement.setAttribute("title", text);
                 }
@@ -447,7 +446,6 @@
                 .toLowerCase();
         }
 
-        // HÀM ẨN / HIỆN THANH TÌM KIẾM & DROPDOWN
         function toggleToolbar() {
             isToolbarVisible = !isToolbarVisible;
             const toolbar = document.getElementById("searchToolbarContainer");
@@ -458,13 +456,13 @@
             if (isToolbarVisible) {
                 toolbar.classList.remove("hidden");
                 btnText.textContent = "Ẩn";
-                toggleIcon.className = "fa-solid fa-chevron-up";
-                toggleBtn.className = "inline-flex items-center gap-1.5 px-3 py-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-lg transition active:scale-95 text-xs";
+                toggleIcon.className = "fa-solid fa-chevron-up text-[10px]";
+                toggleBtn.className = "inline-flex items-center gap-1 px-2.5 py-0.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-md transition active:scale-95 text-[11px]";
             } else {
                 toolbar.classList.add("hidden");
                 btnText.textContent = "Hiện";
-                toggleIcon.className = "fa-solid fa-chevron-down";
-                toggleBtn.className = "inline-flex items-center gap-1.5 px-3 py-1 bg-red-100 hover:bg-red-200 text-red-700 font-semibold rounded-lg transition active:scale-95 text-xs border border-red-200";
+                toggleIcon.className = "fa-solid fa-chevron-down text-[10px]";
+                toggleBtn.className = "inline-flex items-center gap-1 px-2.5 py-0.5 bg-red-100 hover:bg-red-200 text-red-700 font-semibold rounded-md transition active:scale-95 text-[11px] border border-red-200";
             }
         }
 
@@ -485,10 +483,10 @@
                 validOfficers = validOfficers.filter(officer => {
                     const valName = removeAccents(getValueAtIndex(officer, 2));
                     const valTitle = removeAccents(getValueAtIndex(officer, 3));
-                    const valCol5 = removeAccents(getValueAtIndex(officer, 4));
+                    const valUnit = removeAccents(getValueAtIndex(officer, 3)); // Cột 4 (index 3)
                     const valPhone = removeAccents(getValueAtIndex(officer, 5)) + " " + removeAccents(extractPhone(officer));
 
-                    const officerWords = `${valName} ${valTitle} ${valCol5} ${valPhone}`.split(/\s+/);
+                    const officerWords = `${valName} ${valTitle} ${valUnit} ${valPhone}`.split(/\s+/);
 
                     return keywords.every(kw => {
                         return officerWords.some(word => word.startsWith(kw));
@@ -498,8 +496,8 @@
 
             document.getElementById("recordCount").textContent = `${validOfficers.length} cán bộ`;
 
-            const grid = document.getElementById("officersGrid");
-            grid.innerHTML = "";
+            const container = document.getElementById("officersGrid");
+            container.innerHTML = "";
 
             if (validOfficers.length === 0) {
                 document.getElementById("dataContainer").classList.add("hidden");
@@ -510,96 +508,137 @@
             document.getElementById("emptyState").classList.add("hidden");
             document.getElementById("dataContainer").classList.remove("hidden");
 
-            if (validOfficers.length === 1) {
-                grid.className = "flex justify-center w-full";
+            // Quy tắc: Trang 3 (index === 2) giữ nguyên dạng lưới không nhóm
+            if (currentSheetIndex === 2) {
+                const grid = document.createElement("div");
+                grid.className = validOfficers.length === 1 ? "flex justify-center w-full" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3";
+                
+                validOfficers.forEach(officer => {
+                    grid.appendChild(createOfficerCard(officer));
+                });
+                container.appendChild(grid);
             } else {
-                grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4";
+                // Các trang 1, 2, 4, 5: Gom nhóm theo cột thứ 4 (index 3)
+                const groups = {};
+                const groupOrder = [];
+
+                validOfficers.forEach(officer => {
+                    let groupName = getValueAtIndex(officer, 3) || "Khác / Chưa phân loại";
+                    if (!groups[groupName]) {
+                        groups[groupName] = [];
+                        groupOrder.push(groupName);
+                    }
+                    groups[groupName].push(officer);
+                });
+
+                groupOrder.forEach(groupName => {
+                    const groupWrapper = document.createElement("div");
+                    groupWrapper.className = "space-y-2.5 mb-4";
+
+                    // Thanh tiêu đề phân tách nhóm đơn vị (Tối ưu nhỏ gọn trên điện thoại)
+                    const groupHeader = document.createElement("div");
+                    groupHeader.className = "bg-red-50 border-l-3 border-red-600 px-3 py-1.5 rounded-r-md shadow-sm flex items-center justify-between";
+                    groupHeader.innerHTML = `
+                        <div class="flex items-center gap-1.5 min-w-0">
+                            <i class="fa-solid fa-building-user text-red-600 text-xs flex-shrink-0"></i>
+                            <h3 class="text-xs font-bold uppercase text-red-900 tracking-wide truncate">${escapeHtml(groupName)}</h3>
+                        </div>
+                        <span class="text-[10px] font-semibold bg-red-200 text-red-800 px-2 py-0.5 rounded-full flex-shrink-0">${groups[groupName].length} cán bộ</span>
+                    `;
+                    groupWrapper.appendChild(groupHeader);
+
+                    const grid = document.createElement("div");
+                    grid.className = groups[groupName].length === 1 ? "flex justify-center w-full" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3";
+
+                    groups[groupName].forEach(officer => {
+                        grid.appendChild(createOfficerCard(officer));
+                    });
+
+                    groupWrapper.appendChild(grid);
+                    container.appendChild(groupWrapper);
+                });
             }
+        }
 
-            validOfficers.forEach(officer => {
-                let rawImgUrl = getValueAtIndex(officer, 1);
-                let imgUrl = formatImageUrl(rawImgUrl);
+        function createOfficerCard(officer) {
+            let rawImgUrl = getValueAtIndex(officer, 1);
+            let imgUrl = formatImageUrl(rawImgUrl);
 
-                const valName = getValueAtIndex(officer, 2) || "Chưa cập nhật";
-                const valTitle = getValueAtIndex(officer, 3) || "Cán bộ";
-                const valCol5 = getValueAtIndex(officer, 4);
-                
-                let valPhone = getValueAtIndex(officer, 5);
-                if (!valPhone || valPhone.replace(/[^0-9]/g, '').length < 8) {
-                    valPhone = extractPhone(officer);
-                }
-                const cleanPhone = String(valPhone).replace(/[^0-9]/g, '');
+            const valName = getValueAtIndex(officer, 2) || "Chưa cập nhật";
+            const valTitle = getValueAtIndex(officer, 3) || "Cán bộ";
+            const valCol5 = getValueAtIndex(officer, 4);
+            
+            let valPhone = getValueAtIndex(officer, 5);
+            if (!valPhone || valPhone.replace(/[^0-9]/g, '').length < 8) {
+                valPhone = extractPhone(officer);
+            }
+            const cleanPhone = String(valPhone).replace(/[^0-9]/g, '');
 
-                const card = document.createElement("div");
-                card.className = `relative overflow-hidden bg-white rounded-xl p-4 border-t-4 border-t-red-600 border-x border-b border-slate-200 shadow-sm hover:shadow-md hover:border-red-400 hover:ring-2 hover:ring-red-100/50 transition-all duration-300 flex flex-col justify-between ${validOfficers.length === 1 ? 'max-w-md w-full' : 'w-full'}`;
+            const card = document.createElement("div");
+            card.className = "relative overflow-hidden bg-white rounded-xl p-3 border-t-3 border-t-red-600 border-x border-b border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between w-full";
 
-                const isImgValid = imgUrl && imgUrl.length > 10;
-                
-                const avatarHtml = isImgValid ? `
-                    <img src="${escapeHtml(imgUrl)}" 
-                         alt="${escapeHtml(valName)}" 
-                         onclick="openImageModal('${escapeHtml(imgUrl)}')" 
-                         class="w-14 h-14 rounded-full object-cover border-2 border-red-500/20 shadow-sm flex-shrink-0 cursor-zoom-in hover:scale-105 hover:border-red-500 transition duration-200" 
-                         title="Click để phóng to ảnh" 
-                         onerror="handleImageError(this, '${escapeHtml(rawImgUrl)}');">
-                ` : `
-                    <div class="w-14 h-14 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-lg border-2 border-red-200 flex-shrink-0">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
-                `;
+            const isImgValid = imgUrl && imgUrl.length > 10;
+            const avatarHtml = isImgValid ? `
+                <img src="${escapeHtml(imgUrl)}" 
+                     alt="${escapeHtml(valName)}" 
+                     onclick="openImageModal('${escapeHtml(imgUrl)}')" 
+                     class="w-12 h-12 rounded-full object-cover border-2 border-red-500/20 shadow-sm flex-shrink-0 cursor-zoom-in hover:scale-105 hover:border-red-500 transition duration-200" 
+                     title="Click để phóng to ảnh" 
+                     onerror="handleImageError(this, '${escapeHtml(rawImgUrl)}');">
+            ` : `
+                <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-base border-2 border-red-200 flex-shrink-0">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+            `;
 
-                // GIỮ NGUYÊN QUY TẮC BAN ĐẦU: Trang 1, 2, 4, 5 hiển thị cột phụ, riêng trang 3 (index 2) ẩn
-                const showCol5 = (currentSheetIndex !== 2) && valCol5;
-                const col5Html = showCol5 ? `
-                    <div class="mt-1.5 inline-flex items-center gap-1.5 text-[11px] text-amber-700 bg-amber-50 border border-amber-200/80 rounded-md px-2 py-0.5 max-w-full truncate" title="${escapeHtml(valCol5)}">
-                        <i class="fa-solid fa-circle-info text-amber-500 text-[10px] flex-shrink-0"></i>
-                        <span class="truncate font-medium">${escapeHtml(valCol5)}</span>
-                    </div>
-                ` : '';
+            const showCol5 = (currentSheetIndex !== 2) && valCol5;
+            const col5Html = showCol5 ? `
+                <div class="mt-1 inline-flex items-center gap-1 text-[10px] text-amber-700 bg-amber-50 border border-amber-200/80 rounded px-1.5 py-0.5 max-w-full truncate" title="${escapeHtml(valCol5)}">
+                    <i class="fa-solid fa-circle-info text-amber-500 text-[9px] flex-shrink-0"></i>
+                    <span class="truncate font-medium">${escapeHtml(valCol5)}</span>
+                </div>
+            ` : '';
 
-                card.innerHTML = `
-                    <div class="absolute -right-4 -bottom-4 opacity-[0.04] pointer-events-none">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Communist_Party_of_Vietnam_flag_logo_gold.svg" class="w-28 h-28 object-contain">
-                    </div>
+            card.innerHTML = `
+                <div class="absolute -right-4 -bottom-4 opacity-[0.04] pointer-events-none">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Communist_Party_of_Vietnam_flag_logo_gold.svg" class="w-24 h-24 object-contain">
+                </div>
 
-                    <div class="relative z-10">
-                        <div class="flex items-center gap-3.5 mb-3.5">
-                            ${avatarHtml}
-                            <div class="min-w-0 flex-grow">
-                                <div class="flex items-center gap-1.5">
-                                    <h3 class="text-base font-bold text-slate-800 truncate" title="${escapeHtml(valName)}">
-                                        ${escapeHtml(valName)}
-                                    </h3>
-                                </div>
-                                <div class="mt-1 flex flex-col items-start gap-1">
-                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 max-w-full truncate">
-                                        <i class="fa-solid fa-award text-blue-500 text-[11px]"></i>
-                                        <span class="truncate">${escapeHtml(valTitle)}</span>
-                                    </span>
-                                    ${col5Html}
-                                </div>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-3 mb-2.5">
+                        ${avatarHtml}
+                        <div class="min-w-0 flex-grow">
+                            <div class="flex items-center gap-1">
+                                <h3 class="text-sm font-bold text-slate-800 truncate" title="${escapeHtml(valName)}">
+                                    ${escapeHtml(valName)}
+                                </h3>
+                            </div>
+                            <div class="mt-0.5 flex flex-col items-start gap-0.5">
+                                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-200 max-w-full truncate">
+                                    <i class="fa-solid fa-award text-blue-500 text-[10px]"></i>
+                                    <span class="truncate">${escapeHtml(valTitle)}</span>
+                                </span>
+                                ${col5Html}
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="relative z-10 pt-3 border-t border-slate-100 mt-3 flex flex-col gap-2">
-                        <a href="tel:${cleanPhone}" class="relative overflow-hidden w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-bold py-2.5 px-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2 active:scale-95 group">
-                            <span class="absolute inset-0 w-full h-full bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
-                            <span class="w-2 h-2 rounded-full bg-emerald-200 animate-ping"></span>
-                            <i class="fa-solid fa-phone-volume text-sm animate-bounce"></i>
-                            <span class="uppercase tracking-wider">Gọi Điện</span>
-                        </a>
+                <div class="relative z-10 pt-2 border-t border-slate-100 mt-2 flex flex-col gap-1.5">
+                    <a href="tel:${cleanPhone}" class="relative overflow-hidden w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-[11px] font-bold py-2 px-2.5 rounded-lg shadow transition flex items-center justify-center gap-1.5 active:scale-95 group">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-200 animate-ping"></span>
+                        <i class="fa-solid fa-phone-volume text-xs"></i>
+                        <span class="uppercase tracking-wider">Gọi Điện</span>
+                    </a>
 
-                        <a href="https://zalo.me/${cleanPhone}" target="_blank" class="relative overflow-hidden w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold py-2.5 px-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2 active:scale-95 group">
-                            <span class="absolute inset-0 w-full h-full bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
-                            <span class="w-2 h-2 rounded-full bg-blue-300 animate-ping"></span>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo Logo" class="w-4 h-4 object-contain flex-shrink-0 animate-bounce">
-                            <span class="uppercase tracking-wider">Tương Tác Zalo</span>
-                        </a>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
+                    <a href="https://zalo.me/${cleanPhone}" target="_blank" class="relative overflow-hidden w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-[11px] font-bold py-2 px-2.5 rounded-lg shadow transition flex items-center justify-center gap-1.5 active:scale-95 group">
+                        <span class="w-1.5 h-1.5 rounded-full bg-blue-300 animate-ping"></span>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo Logo" class="w-3.5 h-3.5 object-contain flex-shrink-0">
+                        <span class="uppercase tracking-wider">Tương Tác Zalo</span>
+                    </a>
+                </div>
+            `;
+            return card;
         }
 
         function handleImageError(imgEl, rawUrl) {
@@ -607,12 +646,12 @@
             if (fileIdMatch && fileIdMatch[1]) {
                 const fallbackUrl = `https://images.weserv.nl/?url=${encodeURIComponent(`https://drive.google.com/uc?id=${fileIdMatch[1]}`)}`;
                 imgEl.onerror = function() {
-                    this.outerHTML = '<div class="w-14 h-14 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-lg border-2 border-red-200 flex-shrink-0"><i class="fa-solid fa-user"></i></div>';
+                    this.outerHTML = '<div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-base border-2 border-red-200 flex-shrink-0"><i class="fa-solid fa-user"></i></div>';
                 };
                 imgEl.src = fallbackUrl;
                 imgEl.setAttribute('onclick', `openImageModal('${fallbackUrl}')`);
             } else {
-                imgEl.outerHTML = '<div class="w-14 h-14 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-lg border-2 border-red-200 flex-shrink-0"><i class="fa-solid fa-user"></i></div>';
+                imgEl.outerHTML = '<div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-base border-2 border-red-200 flex-shrink-0"><i class="fa-solid fa-user"></i></div>';
             }
         }
 
